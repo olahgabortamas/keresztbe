@@ -16,6 +16,7 @@ Ellenőrzés: `npm test`, éles build: `npm run build`. A `dist` könyvtár bár
 - Egérrel, érintéssel és billentyűzettel játszható. A tábla kis képernyőn görgethető.
 - Helyes szóért 100 pont, hibátlan kezdés esetén 25 bónusz; súgás és hibás ellenőrzés levonással jár.
 - A haladás és a pontszám az eszköz `localStorage` tárolójában marad. Nincs fiók vagy szerveroldali ranglista.
+- A rejtvényenkénti haladás a felületről újrakezdhető.
 - PWA manifest és service worker a telepítéshez és a már meglátogatott tartalom offline eléréséhez.
 
 ## További rejtvények
