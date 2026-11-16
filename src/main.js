@@ -1,5 +1,5 @@
-import { editions, makePuzzle } from './puzzles.js';
-import { fold, backspaceIndex } from './game-logic.js';
+import { editions, makePuzzle } from './puzzles.js?v=5';
+import { fold, backspaceIndex } from './game-logic.js?v=5';
 
 const $=s=>document.querySelector(s);
 const key=(id)=>`keresztbe:v3:${id}`;
