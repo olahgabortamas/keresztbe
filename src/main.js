@@ -90,4 +90,4 @@ document.addEventListener('keydown',e=>{if(e.target.closest('dialog')||e.ctrlKey
 setInterval(()=>{if(!state||state.completed||document.hidden)return;state.seconds++;$('#timer').textContent=timeText(state.seconds);if(state.seconds%5===0)save();},1000);
 window.addEventListener('beforeunload',()=>{if(state)save();});
 renderShell();
-if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).catch(()=>{}));
