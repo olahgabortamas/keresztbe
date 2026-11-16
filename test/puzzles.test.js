@@ -8,7 +8,14 @@ for(const edition of editions){
     assert.equal(p.letters.length,edition.size**2);
     assert.ok(p.entries.length>=25);
     assert.deepEqual(makePuzzle(edition.size,edition.seed).letters,p.letters);
+    const overlaps=new Map();
+    for(const entry of p.entries) for(const [offset] of [...entry.answer].entries()){
+      const index=(entry.r+(entry.dir===2?offset:0))*p.size+entry.c+(entry.dir===1?offset:0);
+      overlaps.set(index,(overlaps.get(index)||0)+1);
+    }
+    assert.ok([...overlaps.values()].filter(count=>count===2).length>=p.entries.length*.8);
     for(const entry of p.entries){
+      assert.ok([...entry.answer].some((_,offset)=>overlaps.get((entry.r+(entry.dir===2?offset:0))*p.size+entry.c+(entry.dir===1?offset:0))===2));
       const clue=(entry.r-(entry.dir===2?1:0))*p.size+entry.c-(entry.dir===1?1:0);
       assert.ok(p.clues.get(clue)?.includes(entry));
       assert.match(entry.answer,/^[A-ZÁÉÍÓÖŐÚÜŰ]+$/);

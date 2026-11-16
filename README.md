@@ -13,7 +13,9 @@ Ellenőrzés: `npm test`, éles build: `npm run build`. A `dist` könyvtár bár
 ## Játék
 
 - Három 15×15, 19×19 és 23×23 mezős rejtvény, magyar meghatározásokkal a rácsban.
-- Egérrel, érintéssel és billentyűzettel játszható. A tábla kis képernyőn görgethető.
+- Egérrel, érintéssel és billentyűzettel játszható.
+- A teljes rács alapnézetben egyben látható; a nagyított nézetben görgethető. A szavak minden esetben keresztezik egymást.
+- A megfejtés ékezet nélkül is helyes (például `KAVE` → `KÁVÉ`). A Backspace a beírás helyéről visszalép, és törli az előző betűt.
 - Helyes szóért 100 pont, hibátlan kezdés esetén 25 bónusz; súgás és hibás ellenőrzés levonással jár.
 - A haladás és a pontszám az eszköz `localStorage` tárolójában marad. Nincs fiók vagy szerveroldali ranglista.
 - A rejtvényenkénti haladás a felületről újrakezdhető.

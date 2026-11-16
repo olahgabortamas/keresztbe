@@ -8,7 +8,7 @@ export const wordBank = [
   ['ÁLOM','Alvás közben látott történet'],['MOSOLY','Öröm az arcon'],['ÖRÖM','Jó hírre érzett boldogság'],['ZENE','Dallamok és ritmusok világa'],
   ['TÁNC','Zenére végzett mozgás'],['MOZI','Filmnézés helye'],['SZÍNHÁZ','Élő előadások épülete'],['JÁTÉK','Szórakoztató elfoglaltság'],
   ['REJTVÉNY','Fejtörő, amit most is töltesz'],['BETŰ','Az ábécé egy eleme'],['SZÓ','Betűkből álló nyelvi egység'],['MONDAT','Írásjel zárja le'],
-  ['PAPÍR','Erre nyomtatják az újságot'],['TOLl','Tintával írható eszköz'],['CERUZA','Radírozható íróeszköz'],['ÚJSÁG','Híreket közlő lap'],
+  ['PAPÍR','Erre nyomtatják az újságot'],['TOLL','Tintával írható eszköz'],['CERUZA','Radírozható íróeszköz'],['ÚJSÁG','Híreket közlő lap'],
   ['VÁROS','Sok utcából álló település'],['FALU','Kisebb vidéki település'],['UTCA','Házak között vezet'],['TÉR','Nyitott hely a városban'],
   ['HÍD','Két partot köt össze'],['VONAT','Síneken közlekedik'],['HAJÓ','Vízen közlekedő jármű'],['REPÜLŐ','Az égben utazunk vele'],
   ['FELHŐ','Az égen úszó pára'],['ESŐ','Felhőből hulló víz'],['HÓ','Télen hulló fehér csapadék'],['SZÉL','Mozgó levegő'],
@@ -31,7 +31,7 @@ export const wordBank = [
   ['TITOK','Nem áruljuk el mindenkinek'],['KALAND','Izgalmas élmény'],['UTAZÁS','Útra kelés'],['EMLÉK','Múltból megmaradt kép'],
   ['RÓZSA','Tövises, illatos virág'],['TULIPÁN','Tavasszal nyíló hagymás virág'],['LEVÉL','A fa zöld része'],['GYÖKÉR','Növény föld alatti része'],
   ['FÜGGÖNY','Az ablak előtt lóg'],['SZŐNYEG','A padlón fekszik'],['POLC','Könyvek állnak rajta'],['KANAPÉ','Nappali ülőbútor']
-].map(([answer, clue]) => ({ answer: answer.toUpperCase().replace('TOLL','TOLL'), clue }));
+].map(([answer, clue]) => ({ answer: answer.toUpperCase(), clue }));
 
 function hash(seed) { let x=seed|0; return () => { x^=x<<13; x^=x>>>17; x^=x<<5; return (x>>>0)/4294967296; }; }
 
@@ -81,20 +81,11 @@ export function makePuzzle(size, seed, title, subtitle) {
     options.sort((a,b)=>b.score-a.score);
     if(options.length) add(item,options[0].r,options[0].c,options[0].dir);
   }
-  // Small self-contained entries finish the unused corners, as in a printed grid.
-  for(const item of pool.filter(w=>w.answer.length>=3&&w.answer.length<=6)) {
-    if(placed.some(p=>p.answer===item.answer)) continue;
-    const options=[];
-    for(let r=0;r<size;r++) for(let c=0;c<size;c++) for(const dir of [1,2]) {
-      if(fit(item.answer,r,c,dir)===0) options.push({r,c,dir,score:rand()});
-    }
-    if(options.length){options.sort((a,b)=>b.score-a.score);add(item,options[0].r,options[0].c,options[0].dir);}
-  }
   return {size,seed,title,subtitle,letters,clues,entries:placed};
 }
 
 export const editions=[
-  {id:'reggeli',size:15,seed:1217,title:'Reggeli derű',subtitle:'Egy csésze mellé',tag:'Klasszikus'},
-  {id:'vasarnapi',size:19,seed:7879,title:'Vasárnapi séta',subtitle:'Hosszabb kikapcsolódás',tag:'Nagy'},
-  {id:'mester',size:23,seed:33103,title:'A nagy kihívás',subtitle:'A türelmes fejtőknek',tag:'Óriás'}
+  {id:'reggeli',size:15,seed:15,title:'Reggeli derű',subtitle:'Egy csésze mellé',tag:'Klasszikus'},
+  {id:'vasarnapi',size:19,seed:63,title:'Vasárnapi séta',subtitle:'Hosszabb kikapcsolódás',tag:'Nagy'},
+  {id:'mester',size:23,seed:25,title:'A nagy kihívás',subtitle:'A türelmes fejtőknek',tag:'Óriás'}
 ];
