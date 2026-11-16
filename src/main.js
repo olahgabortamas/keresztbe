@@ -1,5 +1,5 @@
-import { editions, makePuzzle } from './puzzles.js?v=6';
-import { fold, backspaceIndex } from './game-logic.js?v=6';
+import { editions, makePuzzle } from './puzzles.js?v=7';
+import { fold, backspaceIndex, timeBonus } from './game-logic.js?v=7';
 
 const $=s=>document.querySelector(s);
 const key=(id)=>`keresztbe:v3:${id}`;
@@ -10,7 +10,7 @@ let currentId=localStorage.getItem('keresztbe:last')||editions[0].id;
 if(!puzzles.has(currentId))currentId=editions[0].id;
 let puzzle, state, selected=0, activeCell=-1, showingMenu=false, toastTimer, lastTyped=false, zoomed=false;
 
-function fresh(){return {values:{},solved:[],attempted:[],hinted:[],wrongChecks:{},wrongPunchline:'',punchlineSolved:false,score:0,mistakes:0,hints:0,seconds:0,completed:false};}
+function fresh(){return {values:{},solved:[],attempted:[],hinted:[],wrongChecks:{},wrongPunchline:'',punchlineSolved:false,score:0,timeAwarded:0,mistakes:0,hints:0,seconds:0,completed:false};}
 function load(id){try{return {...fresh(),...JSON.parse(localStorage.getItem(key(id))||'{}')};}catch{return fresh();}}
 function save(){localStorage.setItem(key(currentId),JSON.stringify(state));}
 function entryCells(e){return [...e.answer].map((_,i)=>(e.r+(e.dir===2?i:0))*puzzle.size+e.c+(e.dir===1?i:0));}
@@ -27,15 +27,16 @@ function toast(msg){const el=$('#toast');el.textContent=msg;el.classList.add('sh
 
 function renderShell(){
   app.innerHTML=`<header class="topbar"><a class="brand" href="#" aria-label="Keresztbe kezdőlap"><span class="brand-mark"><i></i><i></i><i></i><i></i></span><span>Keresztbe<span class="brand-dot">.</span></span></a><nav><span class="nav-caption">Egy kis fejtörő, sok jó pillanat.</span><button id="puzzleMenu" class="nav-button" type="button">Rejtvények <span>⌄</span></button></nav></header>
-  <main><section class="intro"><div class="eyebrow"><span class="eyebrow-line"></span> A NAP KIS SZÜNETE</div><h1>Gondolkodj <em>keresztbe.</em></h1><p>Skandináv keresztrejtvények magyarul, pont úgy, ahogy az újságból szereted — egy kis mai varázzsal.</p><div class="intro-deco" aria-hidden="true"><span>✳</span><span>✳</span><span>✳</span></div></section>
+  <main><section class="intro"><div class="eyebrow"><span class="eyebrow-line"></span> MAGYAR SKANDINÁV KERESZTREJTVÉNY</div><h1>Gondolkodj <em>keresztbe.</em></h1><p>Hat rejtvény, hat csattanó. Válassz egyet, és gyűjts pontokat!</p></section>
   <section id="chooser" class="chooser" aria-label="Rejtvény választása"></section>
-  <section class="game-shell"><div class="game-main"><div class="game-heading"><div><div class="kicker">A MAI REJTVÉNY</div><h2 id="puzzleTitle"></h2><p id="puzzleSubtitle"></p></div><div class="edition-stamp">K <span>✳</span></div></div><div id="jokeLead" class="joke-lead"></div><div class="game-toolbar"><div class="stat"><span class="stat-icon">◷</span><strong id="timer">00:00</strong><small>eltelt idő</small></div><div class="stat"><span class="stat-icon">✦</span><strong id="score">0</strong><small>pont</small></div><div class="stat progress-stat"><span class="stat-icon">▦</span><strong id="progress">0 / 0</strong><small>megfejtett szó</small></div><button id="zoomButton" class="zoom-button" type="button" aria-pressed="false">Nagyítás <span>＋</span></button><button id="helpButton" class="help-button" type="button" title="Játékszabályok">?</button></div>
+  <section class="game-shell"><div class="game-main"><div class="game-heading"><div><div class="kicker">MOST EZT FEJTED</div><h2 id="puzzleTitle"></h2><p id="puzzleSubtitle"></p></div><div class="heading-actions"><div class="bonus-pill" title="A teljes rejtvény megfejtésekor jár. Percenként 10 ponttal csökken."><span>◷ IDŐBÓNUSZ</span><strong id="bonusPreview">+0</strong></div><button id="nextPuzzle" class="next-puzzle" type="button">Másik rejtvény <span>↗</span></button></div></div><div id="jokeLead" class="joke-lead"></div><div class="game-toolbar"><div class="stat"><span class="stat-icon">◷</span><strong id="timer">00:00</strong><small>eltelt idő</small></div><div class="stat"><span class="stat-icon">✦</span><strong id="score">0</strong><small>pont</small></div><div class="stat progress-stat"><span class="stat-icon">▦</span><strong id="progress">0 / 0</strong><small>megfejtett szó</small></div><button id="zoomButton" class="zoom-button" type="button" aria-pressed="false">Nagyítás <span>＋</span></button><button id="helpButton" class="help-button" type="button" title="Játékszabályok">?</button></div>
   <div id="mobileClue" class="mobile-clue" aria-live="polite"></div><div class="board-frame"><div id="board" class="board" role="grid" aria-label="Skandináv keresztrejtvény"></div></div><div class="board-foot"><span><span class="live-dot"></span> A haladásodat automatikusan mentjük</span><span id="boardSize"></span></div></div>
-  <aside class="sidebar"><div class="aside-heading"><span class="aside-star">✳</span><span>FEJTŐSAROK</span></div><div class="joke-card" id="jokeCard"><div class="joke-card-top"><span>AZ ELKEZDETT VICC</span><span>+300 PONT</span></div><p id="jokeSetup"></p><div class="phrase-label">A POÉN A KIEMELT FŐSOROKBAN</div><div id="phrasePreview" class="phrase-preview"></div><button id="punchlineButton" class="punchline-button" type="button">Poén ellenőrzése <span>↗</span></button></div><div class="clue-card"><div class="clue-label">AKTUÁLIS MEGHATÁROZÁS <span id="direction"></span></div><p id="activeClue"></p><div class="answer-length" id="answerLength"></div></div><div class="action-row"><button id="checkButton" class="primary-action" type="button"><span>✓</span> Szó ellenőrzése</button><button id="hintButton" class="secondary-action" type="button"><span>✧</span> Egy betű súgás</button><button id="checkAllButton" class="all-action" type="button"><span>▦</span> Összes szó ellenőrzése</button></div><div class="score-card"><div class="score-ornament">✦</div><div class="score-title">Gyűjts pontokat!</div><p>Jó szó <strong>+100</strong> · elsőre <strong>+25</strong><br>Poén <strong>+300</strong> · súgás <strong>−30</strong></p></div><div class="keyboard-hint">⌨ &nbsp; Billentyűzettel is játszható</div><button id="resetButton" class="reset-button" type="button">Rejtvény újrakezdése ↺</button></aside></section>
+  <aside class="sidebar"><div class="aside-heading"><span class="aside-star">✳</span><span>FEJTŐSAROK</span></div><div class="joke-card" id="jokeCard"><div class="joke-card-top"><span>AZ ELKEZDETT VICC</span><span>+300 PONT</span></div><p id="jokeSetup"></p><div class="phrase-label">A POÉN A KIEMELT FŐSOROKBAN</div><div id="phrasePreview" class="phrase-preview"></div><button id="punchlineButton" class="punchline-button" type="button">Poén ellenőrzése <span>↗</span></button></div><div class="clue-card"><div class="clue-label">AKTUÁLIS MEGHATÁROZÁS <span id="direction"></span></div><p id="activeClue"></p><div class="answer-length" id="answerLength"></div></div><div class="action-row"><button id="checkButton" class="primary-action" type="button"><span>✓</span> Szó ellenőrzése</button><button id="hintButton" class="secondary-action" type="button"><span>✧</span> Egy betű súgás</button><button id="checkAllButton" class="all-action" type="button"><span>▦</span> Összes szó ellenőrzése</button></div><div class="score-card"><div class="score-ornament">✦</div><div class="score-title">Gyűjts pontokat!</div><p>Jó szó <strong>+100</strong> · elsőre <strong>+25</strong><br>Poén <strong>+300</strong> · súgás <strong>−30</strong><br>Időbónusz: <strong id="bonusRule"></strong></p></div><div class="keyboard-hint">⌨ &nbsp; Billentyűzettel is játszható</div><button id="resetButton" class="reset-button" type="button">Rejtvény újrakezdése ↺</button></aside></section>
   <section class="bottom-note"><span>✳</span><div><strong>Csak még egy szó…</strong><p>A legjobb ötletek néha egy kis szünet után jönnek.</p></div></section></main>
-  <footer><span>Keresztbe<span class="brand-dot">.</span></span><span>Magyar szavak. Jó pillanatok.</span><span>2026</span></footer><div id="toast" class="toast" role="status"></div><input id="mobileInput" class="mobile-input" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" aria-label="Betű beírása" /><dialog id="helpDialog"><form method="dialog"><button class="close" aria-label="Bezárás">×</button><div class="dialog-symbol">✳</div><h2>Hogyan játssz?</h2><p>A zöld mezőkben vannak a meghatározások. A nyíl mutatja a válasz irányát. A rézszínű fősorokban rejtőzik a vicc poénja; a keresztező szavak segítenek kitalálni. Az ékezet nélküli betűket is elfogadjuk.</p><p>Az <strong>Összes szó ellenőrzése</strong> az összes kitöltött szót vizsgálja. A poént külön ellenőrizd: <strong>300 bónuszpont</strong> jár érte. A haladás ezen az eszközön marad meg.</p><button class="dialog-ok">Értem, jöhet!</button></form></dialog>`;
+  <footer><span>Keresztbe<span class="brand-dot">.</span></span><span>Magyar szavak. Jó pillanatok.</span><span>2026</span></footer><div id="toast" class="toast" role="status"></div><input id="mobileInput" class="mobile-input" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" aria-label="Betű beírása" /><dialog id="helpDialog"><form method="dialog"><button class="close" aria-label="Bezárás">×</button><div class="dialog-symbol">✳</div><h2>Hogyan játssz?</h2><p>A zöld mezőkben vannak a meghatározások. A nyíl mutatja a válasz irányát. A rézszínű fősorokban rejtőzik a vicc poénja; a keresztező szavak segítenek kitalálni. Az ékezet nélküli betűket is elfogadjuk.</p><p>Az <strong>Összes szó ellenőrzése</strong> az összes kitöltött szót vizsgálja. A poént külön ellenőrizd: <strong>300 bónuszpont</strong> jár érte. A teljes rejtvény után időbónuszt is kapsz; percenként 10 ponttal csökken. A haladás ezen az eszközön marad meg.</p><button class="dialog-ok">Értem, jöhet!</button></form></dialog>`;
   $('#helpButton').onclick=()=>$('#helpDialog').showModal();
   $('#zoomButton').onclick=()=>{zoomed=!zoomed;fitBoard();};
+  $('#nextPuzzle').onclick=()=>{showingMenu=true;$('#chooser').classList.add('open');$('#chooser').scrollIntoView({behavior:'smooth',block:'start'});};
   $('#checkButton').onclick=checkWord;$('#hintButton').onclick=hint;$('#checkAllButton').onclick=checkAllWords;$('#punchlineButton').onclick=checkPunchline;
   $('#resetButton').onclick=()=>{if(confirm('Újrakezded ezt a rejtvényt? A mentett betűk és pontok törlődnek.')){state=fresh();save();renderGame();toast('A rejtvény újraindult.');}};
   $('#puzzleMenu').onclick=()=>{showingMenu=!showingMenu;$('#chooser').classList.toggle('open',showingMenu);$('#chooser').scrollIntoView({behavior:'smooth',block:'nearest'});};
@@ -46,14 +47,15 @@ function renderShell(){
 }
 
 function renderChooser(){
-  $('#chooser').innerHTML=`<div class="chooser-title"><span>VÁLASSZ REJTVÉNYT</span><span>01 — 03</span></div><div class="edition-list">${editions.map((e,i)=>{const p=puzzles.get(e.id),s=load(e.id),done=s.solved.length,total=p.entries.filter(word=>word.kind!=='punchline').length;return `<button class="edition ${e.id===currentId?'selected':''}" data-id="${e.id}" type="button"><span class="edition-num">0${i+1}</span><span class="edition-copy"><strong>${e.title}</strong><small>${e.subtitle}</small></span><span class="edition-info"><b>${e.size} × ${e.size}</b><small>${done} / ${total} szó</small></span><span class="edition-arrow">↗</span></button>`}).join('')}</div>`;
+  $('#chooser').innerHTML=`<div class="chooser-title"><span>VÁLASSZ REJTVÉNYT</span><span>${editions.length} REJTVÉNY</span></div><div class="edition-list">${editions.map((e,i)=>{const p=puzzles.get(e.id),s=load(e.id),done=s.solved.length,total=p.entries.filter(word=>word.kind!=='punchline').length;return `<button class="edition ${e.id===currentId?'selected':''}" data-id="${e.id}" type="button"><span class="edition-num">${String(i+1).padStart(2,'0')}</span><span class="edition-copy"><strong>${e.title}</strong><small>${e.subtitle}</small></span><span class="edition-info"><b>${e.size} × ${e.size}</b><small>${done} / ${total} szó</small></span><span class="edition-arrow">↗</span></button>`}).join('')}</div>`;
   $('#chooser').querySelectorAll('.edition').forEach(b=>b.onclick=()=>{currentId=b.dataset.id;localStorage.setItem('keresztbe:last',currentId);showingMenu=false;$('#chooser').classList.remove('open');renderChooser();renderGame();$('.game-shell').scrollIntoView({behavior:'smooth',block:'start'});});
 }
 
 function renderGame(){
   puzzle=puzzles.get(currentId);state=load(currentId);selected=normalEntries()[0].id;lastTyped=false;activeCell=entryCells(puzzle.entries[selected])[0];
   $('#puzzleTitle').textContent=puzzle.title;$('#puzzleSubtitle').textContent=puzzle.subtitle;$('#boardSize').textContent=`${puzzle.size} × ${puzzle.size} mező`;
-  $('#jokeSetup').textContent=puzzle.joke.setup;$('#jokeLead').innerHTML=`<span>✦ A VIC<strong>C</strong> KEZDETE</span><p>${puzzle.joke.setup}</p>`;
+  $('#bonusRule').textContent=`max. +${timeBonus(0,puzzle.size)}, percenként −10`;
+  $('#jokeSetup').textContent=puzzle.joke.setup;$('#jokeLead').innerHTML=`<span>✦ A VICC KEZDETE</span><p>${puzzle.joke.setup}</p>`;
   const board=$('#board');board.style.setProperty('--size',puzzle.size);board.innerHTML='';
   const mainCells=new Set(phraseCells());
   for(let i=0;i<puzzle.letters.length;i++){
@@ -68,8 +70,8 @@ function renderGame(){
 }
 
 function fitBoard(){if(!puzzle)return;const frame=$('.board-frame'),board=$('#board'),size=puzzle.size;
-  const availableWidth=frame.clientWidth-24;
-  const availableHeight=Math.max(190,window.innerHeight-frame.getBoundingClientRect().top-28);
+  const availableWidth=frame.clientWidth-20;
+  const availableHeight=Math.max(190,window.innerHeight-frame.getBoundingClientRect().top-12);
   const fitted=Math.max(10,Math.floor(Math.min((availableWidth-size*2-4)/size,(availableHeight-size*2-4)/size)));
   board.style.setProperty('--cell',`${zoomed?Math.max(fitted,window.innerWidth<780?34:42):fitted}px`);
   frame.classList.toggle('zoomed',zoomed);
@@ -85,6 +87,7 @@ function selectEntry(id,cell){selected=id;const e=puzzle.entries[id];if(!e)retur
 function refresh(){
   for(const node of $('#board').children){const i=Number(node.dataset.i);if(!puzzle.letters[i])continue;node.textContent=state.values[i]||'';node.classList.toggle('filled',!!state.values[i]);node.classList.toggle('solved',entriesAt(i).some(isSolvedEntry));}
   $('#score').textContent=state.score.toLocaleString('hu-HU');$('#timer').textContent=timeText(state.seconds);$('#progress').textContent=`${state.solved.length} / ${normalEntries().length}`;
+  $('#bonusPreview').textContent=`+${state.completed?state.timeAwarded:timeBonus(state.seconds,puzzle.size)}`;
   renderPunchline();
   renderChooser();
 }
@@ -120,7 +123,7 @@ function inspectWord(entry){
   if(!state.attempted.includes(entry.id))state.attempted.push(entry.id);
   return {status:'wrong',points:0};
 }
-function finishCheck(){if(!state.completed&&allSolved()){state.completed=true;save();toast('Teljes rejtvény megfejtve! ✳');}}
+function finishCheck(){if(!state.completed&&allSolved()){state.timeAwarded=timeBonus(state.seconds,puzzle.size);state.score+=state.timeAwarded;state.completed=true;save();refresh();toast(`Teljes rejtvény! Időbónusz: +${state.timeAwarded} pont ✳`);}}
 function checkWord(){const entry=puzzle.entries[selected];if(entry.kind==='punchline'){checkPunchline();return;}
   if(isSolvedEntry(entry)){toast('Ezt a szót már megfejtetted.');return;}
   const result=inspectWord(entry);save();refresh();selectEntry(selected,activeCell);
@@ -160,7 +163,7 @@ document.addEventListener('keydown',e=>{if(e.target.closest('dialog')||e.ctrlKey
   if(e.target.id==='mobileInput')return;
   const ch=clean(e.key);if(ch.length===1){e.preventDefault();inputLetter(ch);}
 });
-setInterval(()=>{if(!state||state.completed||document.hidden)return;state.seconds++;$('#timer').textContent=timeText(state.seconds);if(state.seconds%5===0)save();},1000);
+setInterval(()=>{if(!state||state.completed||document.hidden)return;state.seconds++;$('#timer').textContent=timeText(state.seconds);$('#bonusPreview').textContent=`+${timeBonus(state.seconds,puzzle.size)}`;if(state.seconds%5===0)save();},1000);
 window.addEventListener('beforeunload',()=>{if(state)save();});
 renderShell();
 if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).catch(()=>{}));

@@ -129,5 +129,8 @@ export function makePuzzle(size, seed, title, subtitle, joke) {
 export const editions=[
   {id:'reggeli',size:15,seed:152,title:'Reggeli derű',subtitle:'Egy csésze mellé',tag:'Klasszikus',joke:{setup:'Miért maradt sötét az ég hétfő reggel?',segments:['MERT A NAP','SZABADSÁGON','VAN'],answer:'Mert a nap szabadságon van.'}},
   {id:'vasarnapi',size:19,seed:111,title:'Vasárnapi séta',subtitle:'Hosszabb kikapcsolódás',tag:'Nagy',joke:{setup:'Miért nem lehet titkot tartani a könyvtárban?',segments:['MERT MINDEN KIDERÜL','A SOROK KÖZÖTT'],answer:'Mert minden kiderül a sorok között.'}},
-  {id:'mester',size:23,seed:79,title:'A nagy kihívás',subtitle:'A türelmes fejtőknek',tag:'Óriás',joke:{setup:'Miért nem utazik taxival a csiga?',segments:['MERT A HÁZA NEM FÉR BE','A CSOMAGTARTÓBA'],answer:'Mert a háza nem fér be a csomagtartóba.'}}
+  {id:'mester',size:23,seed:79,title:'A nagy kihívás',subtitle:'A türelmes fejtőknek',tag:'Óriás',joke:{setup:'Miért nem utazik taxival a csiga?',segments:['MERT A HÁZA NEM FÉR BE','A CSOMAGTARTÓBA'],answer:'Mert a háza nem fér be a csomagtartóba.'}},
+  {id:'kert',size:15,seed:99,title:'Kerti idő',subtitle:'Rövid fejtörő egy csattanóval',tag:'Klasszikus',joke:{setup:'Miért vitt a kertész órát a kertbe?',segments:['HOGY IDŐBEN','ÜLTESSE EL','A VIRÁGOKAT'],answer:'Hogy időben ültesse el a virágokat.'}},
+  {id:'tenger',size:19,seed:59,title:'Hullámhossz',subtitle:'Tengerparti szóvadászat',tag:'Nagy',joke:{setup:'Miért szeret a matektanár a tengerparton sétálni?',segments:['MERT SZÁMOLHAT','A HULLÁMOKKAL'],answer:'Mert számolhat a hullámokkal.'}},
+  {id:'csillag',size:23,seed:61,title:'Csillagos ötös',subtitle:'Esti kihívás türelmes fejtőknek',tag:'Óriás',joke:{setup:'Miért ment a csillag iskolába?',segments:['HOGY RAGYOGÓ','BIZONYÍTVÁNYT KAPJON'],answer:'Hogy ragyogó bizonyítványt kapjon.'}}
 ];

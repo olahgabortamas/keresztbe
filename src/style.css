@@ -47,3 +47,26 @@ body{background:radial-gradient(circle at 89% 13%,#f9e8cc 0,transparent 23%),#f5
 .clue-cell.punchline-clue:hover,.clue-cell.punchline-clue.active-clue{background:#874b31}
 @media(max-width:780px){.joke-card{grid-column:1/-1;margin:0}.phrase-row{max-width:100%}}
 @media(max-width:530px){.joke-lead{display:flex;align-items:center;gap:8px;background:#fff0d5;border:1px solid #e1c08f;border-bottom:0;border-radius:10px 10px 0 0;padding:7px 10px;color:#754e32}.joke-lead span{font-size:8px;font-weight:800;letter-spacing:.07em;white-space:nowrap}.joke-lead p{font:600 11px/1.2 Fraunces,serif;margin:0}.game-toolbar{border-radius:0}.joke-card{margin:0 0 10px;padding:14px}.joke-card p{font-size:17px;margin:8px 0 11px}.action-row{grid-template-columns:1fr 1fr}.all-action{grid-column:1/-1}.phrase-tile{height:22px;max-width:22px}.sidebar{gap:0}}
+
+/* Game-first layout: preserve the full grid while giving it the viewport. */
+main{max-width:1600px;padding:0 clamp(10px,1.5vw,28px)}
+.topbar{height:50px;padding:0 clamp(10px,1.5vw,28px)}
+.brand{font-size:22px}.brand-mark{grid-template-columns:repeat(2,8px);grid-template-rows:repeat(2,8px)}
+.intro,.bottom-note{display:none}
+.game-shell{grid-template-columns:minmax(0,1fr) 292px;gap:16px;padding-top:9px}
+.game-heading{min-height:51px;margin-bottom:6px}.game-heading h2{font-size:26px}.game-heading p{font-size:11px}
+.heading-actions{display:flex;align-items:center;gap:8px}
+.bonus-pill{display:flex;align-items:center;gap:9px;border:1px solid #d1b77b;border-radius:10px;background:#fff1cf;color:#8b623b;padding:7px 11px;box-shadow:0 2px 9px #a4742820}
+.bonus-pill span{font-size:9px;font-weight:800;letter-spacing:.08em;white-space:nowrap}.bonus-pill strong{font-size:17px;color:#215d53;white-space:nowrap}
+.next-puzzle{border:1px solid #bfd2c6;border-radius:10px;background:#f8fbf5;color:#245b54;padding:10px 12px;font-size:10px;font-weight:800;white-space:nowrap;transition:background .2s,transform .2s}
+.next-puzzle:hover{background:#e5f1e8;transform:translateY(-2px)}.next-puzzle span{margin-left:6px}
+.game-toolbar{min-height:48px}.board-frame{padding:7px;background:radial-gradient(circle at 50% 35%,#f0f4e9,#dce7dc)}
+.sidebar{padding-top:0}.aside-heading{margin-bottom:6px}.joke-card{padding:14px;margin-bottom:10px}.joke-card p{font-size:18px;margin:8px 0 12px}
+.clue-card{min-height:110px;padding:16px}.clue-card p{font-size:19px;margin:10px 0 7px}.action-row{gap:6px;margin-top:8px}.action-row button{padding:10px 13px}
+.score-card{margin-top:10px;padding:12px 16px}.score-card p{margin:4px 0;line-height:1.6}.score-title{font-size:17px}
+.keyboard-hint{margin-top:7px}.reset-button{margin-top:5px}
+.chooser{padding:10px 0 4px}.edition-list{gap:8px}.edition{padding:11px 13px}.edition.selected{background:#eff6ed}
+footer{margin-top:16px;padding:14px clamp(10px,1.5vw,28px)}
+@media(max-width:1000px){.game-shell{grid-template-columns:minmax(0,1fr) 260px;gap:10px}.next-puzzle{display:none}.bonus-pill{padding:6px 8px}}
+@media(max-width:780px){main{padding:0 10px}.game-shell{display:flex;gap:10px;padding-top:7px}.game-heading{min-height:47px}.heading-actions{margin-left:auto}.sidebar{display:grid;grid-template-columns:1fr 1fr;gap:8px}.joke-card{grid-column:1/-1}.board-frame{padding:5px}.edition-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:530px){main{padding:0 6px}.topbar{height:48px;padding:0 9px}.brand{font-size:19px}.game-shell{padding-top:5px}.game-heading{min-height:39px;margin-bottom:4px}.game-heading h2{font-size:21px}.game-heading p{font-size:9px}.kicker{font-size:8px}.bonus-pill{gap:4px;padding:5px 7px}.bonus-pill span{font-size:7px}.bonus-pill strong{font-size:12px}.next-puzzle{display:none}.game-toolbar{min-height:43px}.board-frame{padding:3px}.sidebar{display:block}.joke-card{margin-bottom:7px}.edition-list{grid-template-columns:1fr}.action-row{margin-top:2px}}

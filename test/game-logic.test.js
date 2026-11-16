@@ -1,6 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { fold, backspaceIndex } from '../src/game-logic.js';
+import { fold, backspaceIndex, timeBonus } from '../src/game-logic.js';
+
+test('time bonus falls once per elapsed minute and stops at zero',()=>{
+  assert.equal(timeBonus(0,15),300);
+  assert.equal(timeBonus(59,15),300);
+  assert.equal(timeBonus(60,15),290);
+  assert.equal(timeBonus(1800,15),0);
+  assert.equal(timeBonus(0,19),450);
+  assert.equal(timeBonus(0,23),600);
+});
 
 test('English ABC answers match Hungarian accents',()=>{
   assert.equal(fold('KAVE'),fold('KÁVÉ'));
