@@ -30,12 +30,44 @@ export const wordBank = [
   ['HOLD','Éjjel fénylik az égen'],['NAP','Nappal világít'],['BOLYGÓ','Csillag körül keringő égitest'],['ŰR','Bolygók közötti tér'],
   ['TITOK','Nem áruljuk el mindenkinek'],['KALAND','Izgalmas élmény'],['UTAZÁS','Útra kelés'],['EMLÉK','Múltból megmaradt kép'],
   ['RÓZSA','Tövises, illatos virág'],['TULIPÁN','Tavasszal nyíló hagymás virág'],['LEVÉL','A fa zöld része'],['GYÖKÉR','Növény föld alatti része'],
-  ['FÜGGÖNY','Az ablak előtt lóg'],['SZŐNYEG','A padlón fekszik'],['POLC','Könyvek állnak rajta'],['KANAPÉ','Nappali ülőbútor']
+  ['FÜGGÖNY','Az ablak előtt lóg'],['SZŐNYEG','A padlón fekszik'],['POLC','Könyvek állnak rajta'],['KANAPÉ','Nappali ülőbútor'],
+  ['FÉNY','A sötétség ellentéte'],['ÁRNYÉK','A fény útjába állva keletkezik'],['HAJNAL','Napkelte előtti idő'],['ALKONY','Napnyugta körüli idő'],
+  ['ÉJSZAKA','A sötét napszak'],['HÓNAP','Nagyjából harminc nap'],['NYÁR','A legmelegebb évszak'],['ŐSZ','A lombhullás évszaka'],
+  ['TÉL','A leghidegebb évszak'],['NAPTÁR','Dátumokat mutat'],['FOTÓ','Fényképezőgéppel készül'],['ECSET','Festő kezében van'],
+  ['FESTÉK','Színes anyag a vásznon'],['VÁSZON','Erre fest a művész'],['MÚZEUM','Kiállítások otthona'],['SZOBOR','Faragott vagy öntött műalkotás'],
+  ['DAL','Énekelhető zenemű'],['HANG','Ezt hallja a fülünk'],['RITMUS','A zene lüktetése'],['GITÁR','Pengetős hangszer'],
+  ['ZONGORA','Billentyűs hangszer'],['HEGEDŰ','Vonóval szólaltatják meg'],['TÉRKÉP','Útvonalat keresünk rajta'],['IRÁNY','Merre tartunk'],
+  ['ÉSZAK','Az iránytű egyik fő iránya'],['KELET','Itt kel fel a nap'],['NYUGAT','Itt nyugszik le a nap'],['TÚRA','Hosszabb természetjárás'],
+  ['SÁTOR','Kempingben alhatunk benne'],['LÁNG','Égő tűz fényes része'],['FÜST','A tűzből száll fel'],['RÓKA','Vörös bundájú erdei állat'],
+  ['BAGOLY','Éjjel vadászó madár'],['BÉKA','A tó partján brekeg'],['HANGYA','Szorgos, apró rovar'],['PATAK','Kisebb folyóvíz'],
+  ['SZIGET','Vízzel körülvett föld'],['KIKÖTŐ','Hajók állomása'],['KAVICS','Apró, lekerekített kő'],['FENYŐ','Tűlevelű fa'],
+  ['TÖLGY','Makkot termő fa'],['BÚZA','Liszt készül belőle'],['LISZT','Őrölt gabona'],['TÉSZTA','Főzve vagy sütve esszük'],
+  ['PITE','Töltött sütemény'],['TORTA','Születésnapon szeleteljük'],['KAKAÓ','Csokoládés ital'],['BÖGRE','Füles ivóedény'],
+  ['KANÁL','Leveshez használjuk'],['VILLA','Fogazott evőeszköz'],['TÁNYÉR','Erre tálaljuk az ételt'],['BORS','Csípős fűszer'],
+  ['HAGYMA','Könnyet csalhat a szemünkbe'],['PAPRIKA','Piros fűszernövény'],['UBORKA','Zöld, ropogós zöldség'],['RÉPA','Narancssárga gyökérzöldség'],
+  ['NAGYI','Nagymama becézve'],['ORVOS','Betegeket gyógyít'],['POSTÁS','Leveleket kézbesít'],['SOFŐR','Járművet vezet'],
+  ['PINCÉR','Étteremben szolgál fel'],['ÍRÓ','Regényt alkot'],['KÖLTŐ','Verseket ír'],['VERS','Rímekkel is íródhat'],
+  ['MESE','Esti történet gyerekeknek'],['REGÉNY','Hosszabb prózai mű'],['FEJEZET','A könyv egyik része'],['KÉRDÉS','Választ vár'],
+  ['VÁLASZ','Kérdésre felel'],['POÉN','A vicc csattanója'],['VICC','Nevetésre késztető történet'],['RAJZ','Ceruzával készült kép'],
+  ['SZÁM','Mennyiséget jelöl'],['KOCKA','Hatlapú test vagy dobókellék'],['KÁRTYA','Pakliban található lap'],['LABDA','Kerek sporteszköz'],
+  ['ÉG','Fejünk fölött terül el'],['TŰZ','Lángolva ég'],['VÍZ','A szomjúságot oltja'],['JÉG','Megfagyott víz'],
+  ['SÁR','Eső után az úton lehet'],['KŐ','Kemény ásványdarab'],['RÉT','Füves, nyílt terület'],['TÁJ','A környék látványa'],
+  ['MÁK','Apró fekete szemű növény'],['RÁK','Ollós vízi állat'],['SÜN','Tüskés kis emlős'],['LÚD','Nagytestű házi szárnyas'],
+  ['KÚT','Vizet meríthetünk belőle'],['KÉS','Vágó evőeszköz'],['TÁL','Nagyobb edény az asztalon'],['RÚD','Hosszú, egyenes pálca'],
+  ['KÉZ','Öt ujja van'],['LÁB','Járáskor használjuk'],['FEJ','A test legfelső része'],['SZEM','Látás szerve'],
+  ['FÜL','Hallás szerve'],['ORR','Szaglás szerve'],['SZÁJ','Beszédre is használjuk'],['HAJ','A fejen nő'],
+  ['VÉR','Az erekben kering'],['ÁGY','Alváshoz használt bútor'],['HÁZ','Lakóépület'],['FAL','A szoba oldala'],
+  ['PAD','Parkban is ülhetünk rajta'],['SZÉK','Háttámlás ülőbútor'],['KAPU','A kerítés nyílása'],['GÓL','Labdajátékban szerzett pont'],
+  ['KÖR','Önmagába visszatérő vonal'],['ÍV','Hajlított vonal'],['VÁR','Erődített régi épület'],['NÉV','Így szólítanak'],
+  ['RÍM','Versek sorvégi összecsengése'],['CÉL','Amit el szeretnénk érni'],['VÉG','Valaminek az utolsó része'],['DÍJ','Jutalom elismerésért'],
+  ['BÁL','Ünnepi táncmulatság'],['SÓ','Sós ízt adó fűszer'],['TÓ','Állóvíz'],['FŰ','A gyepet alkotja'],
+  ['FA','Törzse és lombja van'],['ÚT','Ezen közlekedünk'],['HÉT','Hét nap együtt'],['ÉV','Tizenkét hónap'],
+  ['LAP','Egy oldal a könyvben'],['SOR','Egymás mellett álló elemek'],['RAJ','Együtt repülő méhek csoportja'],['LÉC','Keskeny faléc']
 ].map(([answer, clue]) => ({ answer: answer.toUpperCase(), clue }));
 
 function hash(seed) { let x=seed|0; return () => { x^=x<<13; x^=x>>>17; x^=x<<5; return (x>>>0)/4294967296; }; }
 
-export function makePuzzle(size, seed, title, subtitle) {
+export function makePuzzle(size, seed, title, subtitle, joke) {
   const rand=hash(seed), letters=Array(size*size).fill(''), dirs=Array(size*size).fill(0), clues=new Map(), placed=[];
   const ix=(r,c)=>r*size+c;
   const inside=(r,c)=>r>=0&&c>=0&&r<size&&c<size;
@@ -67,10 +99,20 @@ export function makePuzzle(size, seed, title, subtitle) {
   }
   const pool=[...wordBank];
   for(let i=pool.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
-  // Anchor near the centre. The seeded passes place only valid intersections.
-  const anchor=pool.find(w=>w.answer.length>=Math.min(8,size-3));
-  pool.splice(pool.indexOf(anchor),1);
-  add(anchor,Math.floor(size/2),Math.floor((size-anchor.answer.length)/2),1);
+  if(joke){
+    joke.segments.forEach((segment,index)=>{
+      const answer=segment.replace(/[^A-ZÁÉÍÓÖŐÚÜŰ]/g,'');
+      if(answer.length>size-1)throw new Error('Punchline segment is too long');
+      const middle=Math.floor(size/2);
+      const row=joke.segments.length===3?middle+(index-1)*4:middle+(index===0?-2:2);
+      const col=Math.max(1,Math.floor((size-answer.length)/2));
+      add({answer,clue:`A vicc poénja ${index+1}. rész`,kind:'punchline',part:index},row,col,1);
+    });
+  }else{
+    const anchor=pool.find(w=>w.answer.length>=Math.min(8,size-3));
+    pool.splice(pool.indexOf(anchor),1);
+    add(anchor,Math.floor(size/2),Math.floor((size-anchor.answer.length)/2),1);
+  }
   for(let pass=0;pass<5;pass++) for(const item of pool) {
     if(placed.some(p=>p.answer===item.answer)||item.answer.length>size-2) continue;
     let options=[];
@@ -81,11 +123,11 @@ export function makePuzzle(size, seed, title, subtitle) {
     options.sort((a,b)=>b.score-a.score);
     if(options.length) add(item,options[0].r,options[0].c,options[0].dir);
   }
-  return {size,seed,title,subtitle,letters,clues,entries:placed};
+  return {size,seed,title,subtitle,joke,letters,clues,entries:placed};
 }
 
 export const editions=[
-  {id:'reggeli',size:15,seed:15,title:'Reggeli derű',subtitle:'Egy csésze mellé',tag:'Klasszikus'},
-  {id:'vasarnapi',size:19,seed:63,title:'Vasárnapi séta',subtitle:'Hosszabb kikapcsolódás',tag:'Nagy'},
-  {id:'mester',size:23,seed:25,title:'A nagy kihívás',subtitle:'A türelmes fejtőknek',tag:'Óriás'}
+  {id:'reggeli',size:15,seed:152,title:'Reggeli derű',subtitle:'Egy csésze mellé',tag:'Klasszikus',joke:{setup:'Miért maradt sötét az ég hétfő reggel?',segments:['MERT A NAP','SZABADSÁGON','VAN'],answer:'Mert a nap szabadságon van.'}},
+  {id:'vasarnapi',size:19,seed:111,title:'Vasárnapi séta',subtitle:'Hosszabb kikapcsolódás',tag:'Nagy',joke:{setup:'Miért nem lehet titkot tartani a könyvtárban?',segments:['MERT MINDEN KIDERÜL','A SOROK KÖZÖTT'],answer:'Mert minden kiderül a sorok között.'}},
+  {id:'mester',size:23,seed:79,title:'A nagy kihívás',subtitle:'A türelmes fejtőknek',tag:'Óriás',joke:{setup:'Miért nem utazik taxival a csiga?',segments:['MERT A HÁZA NEM FÉR BE','A CSOMAGTARTÓBA'],answer:'Mert a háza nem fér be a csomagtartóba.'}}
 ];
