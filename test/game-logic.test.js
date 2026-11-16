@@ -1,6 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { fold, backspaceIndex, timeBonus } from '../src/game-logic.js';
+import { fold, backspaceIndex, timeBonus, comboBonus } from '../src/game-logic.js';
+
+test('consecutive correct words earn a capped combo bonus',()=>{
+  assert.deepEqual([1,2,3,6,12].map(comboBonus),[0,10,20,50,50]);
+});
 
 test('time bonus falls once per elapsed minute and stops at zero',()=>{
   assert.equal(timeBonus(0,15),300);

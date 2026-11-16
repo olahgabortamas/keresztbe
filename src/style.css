@@ -70,3 +70,30 @@ footer{margin-top:16px;padding:14px clamp(10px,1.5vw,28px)}
 @media(max-width:1000px){.game-shell{grid-template-columns:minmax(0,1fr) 260px;gap:10px}.next-puzzle{display:none}.bonus-pill{padding:6px 8px}}
 @media(max-width:780px){main{padding:0 10px}.game-shell{display:flex;gap:10px;padding-top:7px}.game-heading{min-height:47px}.heading-actions{margin-left:auto}.sidebar{display:grid;grid-template-columns:1fr 1fr;gap:8px}.joke-card{grid-column:1/-1}.board-frame{padding:5px}.edition-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:530px){main{padding:0 6px}.topbar{height:48px;padding:0 9px}.brand{font-size:19px}.game-shell{padding-top:5px}.game-heading{min-height:39px;margin-bottom:4px}.game-heading h2{font-size:21px}.game-heading p{font-size:9px}.kicker{font-size:8px}.bonus-pill{gap:4px;padding:5px 7px}.bonus-pill span{font-size:7px}.bonus-pill strong{font-size:12px}.next-puzzle{display:none}.game-toolbar{min-height:43px}.board-frame{padding:3px}.sidebar{display:block}.joke-card{margin-bottom:7px}.edition-list{grid-template-columns:1fr}.action-row{margin-top:2px}}
+
+/* Make the square board determine the desktop column instead of sitting in a wide empty panel. */
+.topbar{height:43px}.game-shell{grid-template-columns:minmax(0,var(--play-width,590px)) 292px;width:max-content;max-width:100%;margin:0 auto;padding-top:4px;gap:16px}
+.game-main{width:var(--play-width,590px);max-width:100%}.game-heading{min-height:38px;height:38px;margin-bottom:3px}.game-heading h2{font-size:24px;margin:0}.game-heading .kicker,.game-heading p{display:none}
+.game-toolbar{min-height:39px;padding:0 12px}.stat{min-width:118px;grid-template-rows:16px 11px}.stat+.stat{padding-left:12px}.stat strong{font-size:14px}.stat-icon{font-size:16px}
+.board-frame{position:relative;width:100%;padding:7px;overflow:hidden;border-radius:0 0 12px 12px}.board{margin:0 auto}.clue-text{font-size:clamp(5px,calc(var(--cell)*.19),9px)}
+.progress-rail{height:4px;background:#d7e1d3;overflow:hidden}.progress-rail span{display:block;width:0;height:100%;background:linear-gradient(90deg,#55a388,#d0a05b);box-shadow:0 0 9px #d0a05b99;transition:width .55s cubic-bezier(.2,.8,.2,1)}
+.streak-badge{border:1px solid #d8d9cd;border-radius:9px;background:#f6f5ec;color:#77857a;padding:7px 9px;font-size:9px;font-weight:800;letter-spacing:.07em;white-space:nowrap;transition:background .25s,color .25s,transform .25s,box-shadow .25s}
+.streak-badge strong{font-size:14px;margin:0 3px}.streak-badge.hot{background:#ffe4b3;color:#9a5c2f;border-color:#e9b16e;box-shadow:0 0 0 3px #efbc6b24;animation:streak-glow 1.8s ease-in-out infinite}
+.heading-actions{gap:6px}.bonus-pill{padding:6px 8px}.bonus-pill strong{font-size:15px}.next-puzzle{padding:8px 9px}
+.stat{position:relative}.reward-float{position:absolute;z-index:5;left:34px;top:-4px;color:#c1793a;font-size:13px;font-weight:900;pointer-events:none;animation:reward-rise .9s ease-out forwards}.score-pop{animation:score-pulse .45s ease-out}
+.letter-cell.just-solved{animation:tile-celebrate .6s ease-out}.clue-shake{animation:clue-shake .38s ease-in-out}
+.confetti{position:absolute;z-index:6;top:-16px;width:8px;height:13px;border-radius:2px;pointer-events:none;animation:confetti-fall 1.8s ease-in forwards}
+.chooser.open{animation:chooser-reveal .3s ease-out both}.edition{animation:card-in .35s ease-out both}.edition:nth-child(2){animation-delay:.035s}.edition:nth-child(3){animation-delay:.07s}.edition:nth-child(4){animation-delay:.105s}.edition:nth-child(5){animation-delay:.14s}.edition:nth-child(6){animation-delay:.175s}
+.action-row button:active,.punchline-button:active,.nav-button:active,.next-puzzle:active{transform:translateY(1px) scale(.985)}
+@keyframes reward-rise{0%{opacity:0;transform:translateY(10px) scale(.85)}25%{opacity:1}100%{opacity:0;transform:translateY(-28px) scale(1.08)}}
+@keyframes score-pulse{50%{transform:scale(1.25);color:#bd783a}}
+@keyframes tile-celebrate{0%{transform:scale(.84);filter:brightness(1.2)}55%{transform:scale(1.08);filter:brightness(1.13)}100%{transform:scale(1);filter:brightness(1)}}
+@keyframes clue-shake{25%{transform:translateX(-5px)}50%{transform:translateX(4px)}75%{transform:translateX(-2px)}}
+@keyframes confetti-fall{to{transform:translateY(680px) rotate(640deg);opacity:0}}
+@keyframes chooser-reveal{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes card-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes streak-glow{50%{box-shadow:0 0 0 5px #efbc6b36}}
+@media(max-width:1100px){.next-puzzle{display:none}}
+@media(max-width:1000px){.game-shell{grid-template-columns:minmax(0,var(--play-width,590px)) 260px;gap:10px}}
+@media(max-width:900px){.game-shell{display:flex;flex-direction:column;width:var(--play-width,590px);max-width:100%;gap:10px}.game-main,.sidebar{width:100%}.sidebar{display:grid;grid-template-columns:1fr 1fr;gap:9px}.joke-card{grid-column:1/-1}.board-frame{padding:6px}}
+@media(max-width:530px){.topbar{height:43px}.game-shell{padding-top:3px}.game-heading{height:36px;min-height:36px;margin-bottom:3px}.game-heading h2{font-size:20px}.game-toolbar{min-height:39px;padding:0 7px}.stat{min-width:0}.stat+.stat{padding-left:5px}.streak-badge{padding:5px;font-size:0}.streak-badge strong{font-size:12px}.bonus-pill{padding:5px 6px}.board-frame{padding:3px}.sidebar{display:block}}

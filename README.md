@@ -18,7 +18,7 @@ Ellenőrzés: `npm test`, éles build: `npm run build`. A `dist` könyvtár bár
 - Egérrel, érintéssel és billentyűzettel játszható.
 - A teljes rács alapnézetben egyben látható; a nagyított nézetben görgethető. A szavak minden esetben keresztezik egymást.
 - A megfejtés ékezet nélkül is helyes (például `KAVE` → `KÁVÉ`). A Backspace a beírás helyéről visszalép, és törli az előző betűt.
-- Helyes szóért 100 pont, első próbálkozásra és súgás nélkül 25 bónusz; súgás és hibás ellenőrzés levonással jár. A poén külön ellenőrizhető.
+- Helyes szóért 100 pont, első próbálkozásra és súgás nélkül 25 bónusz jár. Egymás után megfejtett szavak további, legfeljebb 50 pontos sorozatbónuszt adnak. Súgás és hibás ellenőrzés levonással jár.
 - A teljes rejtvény megfejtésekor időbónusz jár: mérettől függően legfeljebb 300, 450 vagy 600 pont, amely percenként 10 ponttal csökken.
 - A haladás és a pontszám az eszköz `localStorage` tárolójában marad. Nincs fiók vagy szerveroldali ranglista.
 - A rejtvényenkénti haladás a felületről újrakezdhető.
